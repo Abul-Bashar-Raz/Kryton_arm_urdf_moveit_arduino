@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+    <param name="robot_description" command = "$(find xacro)/xacro --inorder $(find kryton_arm)/urdf/arm.urdf"/>
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" args ="-d (find kryton_arm)/config/config.rviz"/>
+        
+    <node pkg="rviz" type="rviz" name="rviz"/>
+    <arg name="use_gui" default="true"/>
+    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" output="screen" unless = "$(arg use_gui)"/>
+    <node pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" name="joint_state_publisher_gui" output="screen" if="$(arg use_gui)"/>
+
+</launch>
